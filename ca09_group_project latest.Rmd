@@ -61,7 +61,7 @@ glimpse(listings)
 ```
 
 
-#Initially glimpsing the data, there are 12540 observations of 74 variables, however not all of these will have an effect on price, such as the host_Url. Therefore we manually removed such varibales, along with filtering by minimum no of nights less than 4 and accomodates 2 or more people. We called this data set newlistings 1.
+*Initially glimpsing the data, there are 12540 observations of 74 variables, however not all of these will have an effect on price, such as the host_Url. Therefore we manually removed such varibales, along with filtering by minimum no of nights less than 4 and accomodates 2 or more people. We called this data set newlistings 1.*
 
 ```{r}
 newlistings1 <- listings %>%
@@ -99,7 +99,7 @@ glimpse(newlistings1)
 
 ```
 
-## A glimpse of data newlistings1, reveals we now have 7400 observations with 32 variables, this is much more accessible date, however we noticed that there are a few price anomolies. Therefore using the confidence interval function of price, we removed the upper and lower 5% outliers in a new df, newlistings 2. Along with this we mutated some of the variables for example, converting host_verifications to numbers and making host acceptance rate to percentage. 
+*A glimpse of data newlistings1, reveals we now have 7400 observations with 32 variables, this is much more accessible date, however we noticed that there are a few price anomolies. Therefore using the confidence interval function of price, we removed the upper and lower 5% outliers in a new df, newlistings 2. Along with this we mutated some of the variables for example, converting host_verifications to numbers and making host acceptance rate to percentage.*
 
 ```{r}
 newlistings2 <- newlistings1 %>%
@@ -137,7 +137,7 @@ glimpse(newlistings2)
 favstats(~price, data = newlistings2)
 ```
 
-#Here we see there are now 6674 observation due to removing the price anomolies, and there are 35 variables, as we have added back in shared_bathrooms. Using favstat we can see that the mean has decreased slightly, however the SD has decreased by 4x. 
+*Here we see there are now 6674 observation due to removing the price anomolies, and there are 35 variables, as we have added back in shared_bathrooms. Using favstat we can see that the mean has decreased slightly, however the SD has decreased by 4x. *
 
 #EDA 2
 
@@ -160,9 +160,9 @@ ggplot(newlistings2, aes(x = price, y = amenities, colour = Property_Type)) + #P
   theme_bw()
 ```
 
-# The above plot shows the price of the AirBnB against the amenities they offer, coloured by property type. From the graph it shows little correlation between price and amenities. We beleive this is the case because the price of the amenities are fairly low, such as hair dryers, heating, bed linen etc, therefore no matter if the price of the accomadation is low it is still faesible to afford the amenities. The plot does show that the majoirty of the properties have a price less than $200.
+*The above plot shows the price of the AirBnB against the amenities they offer, coloured by property type. From the graph it shows little correlation between price and amenities. We beleive this is the case because the price of the amenities are fairly low, such as hair dryers, heating, bed linen etc, therefore no matter if the price of the accomadation is low it is still faesible to afford the amenities. The plot does show that the majoirty of the properties have a price less than $200.*
 
-# However there is a correlation between price and private rooms. These are all clustered in the <£200 section with a few outliers, this could be due to the lack of desire to share a house with others and therefore it drives the price of the property down.
+*However there is a correlation between price and private rooms. These are all clustered in the <£200 section with a few outliers, this could be due to the lack of desire to share a house with others and therefore it drives the price of the property down.*
 
 ```{r}
 #Plot 2
@@ -176,7 +176,7 @@ ggplot(newlistings2, aes(x = price, y = amenities, colour = Property_Type)) + #P
   theme_bw()
 ```
 
-# This plot is the same as the above however we have decided to use log of price as it produces a more normal distrubution, it is here a lot clearer to see the shared rooms are the most affordable ones. We will continue therefore to use log price from now on.
+*This plot is the same as the above however we have decided to use log of price as it produces a more normal distrubution, it is here a lot clearer to see the shared rooms are the most affordable ones. We will continue therefore to use log price from now on.*
 
 ```{r}
 #Plot 3
@@ -201,7 +201,7 @@ ggplot(newlistings2, aes(x = price, alpha = 0.6)) + #Plotting a histogram of pri
   geom_vline(aes(xintercept = mean(price)),col='red',size=2, alpha = 0.6)
 ```
 
-#The above plots shows a histogram for the price of the properties one with logscale one without. It is clear from the first graph there is positively skewed distrubution, and by using the log scale it normalises it. This is better for regression models. In both plots we can use the mean to see the mean price is around £115.
+*The above plots shows a histogram for the price of the properties one with logscale one without. It is clear from the first graph there is positively skewed distrubution, and by using the log scale it normalises it. This is better for regression models. In both plots we can use the mean to see the mean price is around £115.*
 
 ```{r}
 #Plot 4
@@ -215,7 +215,7 @@ ggplot(newlistings2, aes(x = review_scores_rating)) + #Plotting a density plot f
   theme_bw()
 ```
 
-#This plot shows a great negative skew to the 5* rating, i.e. the majority of ratings are 5. As the ratings are high, before doing any analysis i could hypothesise that this may mean reviews don't have much bearing on price because, the majority of reviews are 5*, however not all the prices are high.
+*This plot shows a great negative skew to the 5 star rating, i.e. the majority of ratings are 5. As the ratings are high, before doing any analysis i could hypothesise that this may mean reviews don't have much bearing on price because, the majority of reviews are 5 star, however not all the prices are high.*
 
 ```{r}
 #Plot 5
@@ -233,7 +233,7 @@ ggplot(superhost1, aes(x=price, y = host_is_superhost, fill = host_is_superhost)
   theme_bw()
 ```
 
-#The boxplot shows super host to log price, cleary the mean price for the superhosts are greater than that of those who aren't. I would suggest this is because these hosts are seen to be superior and therefore can charge more, especially if this correlates with having more amenities, better response time etc. Surprisngly however the most expensive property is for someone without a superhost, but the superhosts have a greater minimum price because they know they can charge more for the property. The IQR and range is smaller for superhosts, this could be because they know how much they can charge, compared to normal hosts who may have less experience with airbnb.
+*The boxplot shows super host to log price, cleary the mean price for the superhosts are greater than that of those who aren't. I would suggest this is because these hosts are seen to be superior and therefore can charge more, especially if this correlates with having more amenities, better response time etc. Surprisngly however the most expensive property is for someone without a superhost, but the superhosts have a greater minimum price because they know they can charge more for the property. The IQR and range is smaller for superhosts, this could be because they know how much they can charge, compared to normal hosts who may have less experience with airbnb.*
 
 
 ```{r}
@@ -249,9 +249,9 @@ scatterplot <- newlistings2[-c(1:2, #creating a new scatter plot df of variables
 GGally::ggpairs(scatterplot) # Running GG pairs to check relationships between variables
 ```
 
-#Using ggpairs i can see the correlations between variables. The greatest correlation is number of bedrooms and number the property sleeps. This is expected as the more rooms the more the property can sleep. The 2nd highest correlation is between review value and review location, this must be because there nicer the location the greater the review. This is expected, better locations better reviews. Correlations between availability and reviews are negatively correlated slightly. This suggest the more availaibilty the worse the review, which makes sense. If the property is free more often this could be because it isn't the best property which would bring with it worse reviews. 
+*Using ggpairs i can see the correlations between variables. The greatest correlation is number of bedrooms and number the property sleeps. This is expected as the more rooms the more the property can sleep. The 2nd highest correlation is between review value and review location, this must be because there nicer the location the greater the review. This is expected, better locations better reviews. Correlations between availability and reviews are negatively correlated slightly. This suggest the more availaibilty the worse the review, which makes sense. If the property is free more often this could be because it isn't the best property which would bring with it worse reviews. *
 
-#Accomadates, bathrooms, bedrooms, price, availibility all have a positve skew, whilst reviews have a negative skew.
+*Accomadates, bathrooms, bedrooms, price, availibility all have a positve skew, whilst reviews have a negative skew.*
 
 # Mapping 
 
@@ -274,7 +274,6 @@ leaflet(data = filter(listings, minimum_nights <= 4)) %>%
 ```
 
 ## Further variables/questions to explore on our own
-## This is for Valerio 
 
 Our dataset has many more variables, so here are some ideas on how you can extend your analysis
 
@@ -283,8 +282,6 @@ Our dataset has many more variables, so here are some ideas on how you can exten
 1. Some hosts allow you to immediately book their listing (`instant_bookable == TRUE`), while a non-trivial proportion don't. After controlling for other variables, is `instant_bookable` a significant predictor of `price_4_nights`?
 1. For all cities, there are 3 variables that relate to neighbourhoods: `neighbourhood`, `neighbourhood_cleansed`, and `neighbourhood_group_cleansed`. There are typically more than 20 neighbourhoods in each city, and it wouldn't make sense to include them all in your model. Use your city knowledge, or ask someone with city knowledge, and see whether you can group neighbourhoods together so the majority of listings falls in fewer (5-6 max) geographical areas. You would thus need to create a new categorical variabale `neighbourhood_simplified` and determine whether location is a predictor of `price_4_nights`
 1. What is the effect of `avalability_30` or `reviews_per_month` on `price_4_nights`, after we control for other variables?
-
-
 
 
 # Regression Analysis
@@ -502,17 +499,30 @@ Finally, you must use the best model you came up with for prediction. Suppose yo
 
 
 ```{r}
-
+# Filter out the situation matched with the scenario
+# Run prediction on the airbnbn_test dataset
 airbnb_test1 <- airbnb_test %>% 
   filter(number_of_reviews >= 10) %>% 
   filter(review_scores_rating >=4.5) %>% 
   filter(room_type =="Private room") %>% 
   mutate(predictions =predict(model5,.))
 
+# Sift out one sample "https://www.airbnb.com/rooms/31372144"
+# Include appropriate 95% interval with prediction compared with the actual price for 4nights
+
 airbnb2 <- airbnb_test1 %>% 
   filter(listing_url == "https://www.airbnb.com/rooms/31372144") %>% 
-  mutate(predicted_price = exp(predictions)) %>% 
-  summarise(listing_url,predicted_price, price_4_nights) %>% 
+  mutate(predicted_price = exp(predictions),
+            sd=sd(airbnb_train$price_4_nights),
+            count=4671, #total number of observations in airbnb_test
+            t_critical=qt(0.975,count-1),
+            se=sd/sqrt(count),
+            margin_of_error=t_critical*se) %>% 
+  summarise(listing_url,
+            predicted_price,
+            lower=predicted_price-margin_of_error,
+            upper=predicted_price+margin_of_error,
+            price_4_nights) %>% 
   print()
  
 
