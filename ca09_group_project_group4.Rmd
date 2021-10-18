@@ -196,7 +196,7 @@ ggplot(newlistings2, aes(x = price, y = amenities, colour = Property_Type)) + #P
     x = "Price",
     y = "Amenities") +
   ggtitle("Scatter Plot to Show Log Price against Amenities") +
-  theme_bw()
+  theme_bw() 
 ```
 
 *This plot is the same as the above however we have decided to use log of price as it produces a more normal distribution, it is here a lot clearer to see the shared rooms are the most affordable ones. We will continue therefore to use log price from now on.*
@@ -213,7 +213,8 @@ ggplot(newlistings2, aes(x = price, alpha = 0.6)) + #Plotting a histogram of pri
     y = "Frequency Density") +
   ggtitle("Histogram to Show Price") +
   theme_bw() +
-  geom_vline(aes(xintercept = mean(price)),col='red',size=2, alpha = 0.6)
+  geom_vline(aes(xintercept = mean(price)),col='red',size=2, alpha = 0.6)+
+  theme(legend.position = "none")
 
 ggplot(newlistings2, aes(x = price, alpha = 0.6)) + #Plotting a histogram of price
   geom_histogram(aes(y = ..density..), colour = "black", fill = "blue") +
@@ -223,7 +224,8 @@ ggplot(newlistings2, aes(x = price, alpha = 0.6)) + #Plotting a histogram of pri
     y = "Frequency Density") +
   ggtitle("Histogram to Show Log Price") +
   theme_bw() +
-  geom_vline(aes(xintercept = mean(price)),col='red',size=2, alpha = 0.6)
+  geom_vline(aes(xintercept = mean(price)),col='red',size=2, alpha = 0.6)+
+  theme(legend.position = "none") 
 ```
 
 *The above plots shows a histogram for the price of the properties one with logscale one without. It is clear from the first graph there is positively skewed distrubution, and by using the log scale it normalises it. This is better for regression models. In both plots we can use the mean to see the mean price is around £115.*
@@ -237,8 +239,8 @@ ggplot(newlistings2, aes(x = review_scores_rating)) + #Plotting a density plot f
     x = "Review Rating",
     y = "Frequency Density") +
   ggtitle("Density Plot to Show Review Rating") +
-  theme(legend.position = "none") +
-  theme_bw()
+  theme_bw()+
+  theme(legend.position = "none") 
 ```
 
 *This plot shows a great negative skew to the 5 star rating, i.e. the majority of ratings are 5. As the ratings are high, before doing any analysis i could hypothesis that this may mean reviews don't have much bearing on price because, the majority of reviews are 5 star, however not all the prices are high.*
